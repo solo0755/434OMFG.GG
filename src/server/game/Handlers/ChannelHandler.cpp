@@ -52,9 +52,17 @@ void WorldSession::HandleJoinChannel(WorldPacket& recvPacket)
 
     if (channelName.empty())
         return;
+	try
+	{
+		if (isdigit(channelName[0]))
+			return;
+	}
+	catch (const std::exception& e)
+	{
+		TC_LOG_ERROR("chat.system", "ERROR %s",e.what());
+		return;
+	}
 
-    if (isdigit(channelName[0]))
-        return;
 
     if (ChannelMgr* cMgr = ChannelMgr::forTeam(GetPlayer()->GetTeam()))
     {
