@@ -15623,7 +15623,10 @@ Quest const* Player::GetNextQuest(uint64 guid, Quest const* quest)
     switch (GUID_HIPART(guid))
     {
         case HIGHGUID_PLAYER:
-            ASSERT(quest->HasFlag(QUEST_FLAGS_AUTO_COMPLETE));
+            //ASSERT(quest->HasFlag(QUEST_FLAGS_AUTO_COMPLETE)); 为啥要断言呢？程序都退出了
+            if (!quest->HasFlag(QUEST_FLAGS_AUTO_COMPLETE)) {
+                return NULL;
+            }
             return sObjectMgr->GetQuestTemplate(nextQuestID);
         case HIGHGUID_UNIT:
         case HIGHGUID_PET:

@@ -22,6 +22,17 @@
 #include "WorldSession.h"
 #include <cctype>
 
+bool pzxIsDigit(char ch) {
+
+    if ((ch >= 48) && (ch <= 57))//asciiÂë '0'=48 '9'=57
+
+        return true;
+
+    else
+
+        return false;
+
+}
 void WorldSession::HandleJoinChannel(WorldPacket& recvPacket)
 {
     uint32 channelId;
@@ -54,7 +65,7 @@ void WorldSession::HandleJoinChannel(WorldPacket& recvPacket)
         return;
 	try
 	{
-		if (isdigit(channelName[0]))
+		if (pzxIsDigit(channelName[0]))
 			return;
 	}
 	catch (const std::exception& e)
